@@ -1,0 +1,185 @@
+
+import React, { useState, useEffect, useCallback } from 'react';
+import { generateSparkIdea } from './services/geminiService';
+import { SparkIdea, IdeaFilters } from './types';
+import IdeaCard from './components/IdeaCard';
+import Filters from './components/Filters';
+import SavedIdeas from './components/SavedIdeas';
+import { Sparkles, History as HistoryIcon, Github } from 'lucide-react';
+
+const App: React.FC = () => {
+  const [currentIdea, setCurrentIdea] = useState<SparkIdea | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  
+  // Separate states for history and favorites
+  const [history, setHistory] = useState<SparkIdea[]>([]);
+  const [favorites, setFavorites] = useState<SparkIdea[]>([]);
+  
+  const [filters, setFilters] = useState<IdeaFilters>({
+    domain: 'any',
+    complexity: 'moderate',
+    time: 'month'
+  });
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    const savedHistory = localStorage.getItem('spark_history');
+    const savedFavorites = localStorage.getItem('spark_favorites');
+    if (savedHistory) setHistory(JSON.parse(savedHistory));
+    if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
+  }, []);
+
+  // Persist states
+  useEffect(() => {
+    localStorage.setItem('spark_history', JSON.stringify(history));
+  }, [history]);
+
+  useEffect(() => {
+    localStorage.setItem('spark_favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const handleSpark = async () => {
+    setIsLoading(true);
+    setCurrentIdea(null);
+    try {
+      const idea = await generateSparkIdea(filters);
+      setCurrentIdea(idea);
+      setHistory(prev => [idea, ...prev].slice(0, 20)); // Keep last 20
+    } catch (error) {
+      console.error("Spark failed:", error);
+      alert("The spark flickered out... please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const toggleBookmark = (idea: SparkIdea) => {
+    setFavorites(prev => {
+      const isBookmarked = prev.some(item => item.id === idea.id);
+      if (isBookmarked) {
+        return prev.filter(item => item.id !== idea.id);
+      } else {
+        return [idea, ...prev];
+      }
+    });
+  };
+
+  const handleRemoveFromHistory = (id: string) => {
+    setHistory(prev => prev.filter(idea => idea.id !== id));
+  };
+
+  const handleRemoveFromFavorites = (id: string) => {
+    setFavorites(prev => prev.filter(idea => idea.id !== id));
+  };
+
+  const isBookmarked = currentIdea ? favorites.some(f => f.id === currentIdea.id) : false;
+
+  return (
+    <div className="min-h-screen relative flex flex-col items-center p-4 md:p-8 overflow-x-hidden">
+      {/* Background decoration */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-orange-100 rounded-full blur-[100px] opacity-60"></div>
+        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-rose-100 rounded-full blur-[100px] opacity-60"></div>
+      </div>
+
+      {/* Header */}
+      <header className="w-full max-w-4xl flex justify-between items-center mb-12">
+        <div className="flex items-center gap-2 group cursor-default">
+          <div className="p-2 bg-amber-500 rounded-xl shadow-lg shadow-amber-200 group-hover:rotate-12 transition-transform duration-300">
+            <Sparkles className="text-white w-6 h-6" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-stone-800">Spark</h1>
+        </div>
+        
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setIsDrawerOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-stone-200 rounded-full text-stone-600 hover:bg-stone-50 transition-colors shadow-sm"
+          >
+            <HistoryIcon className="w-4 h-4" />
+            <span className="hidden sm:inline">Archive</span>
+            <span className="bg-amber-100 text-amber-700 text-xs px-2 py-0.5 rounded-full font-bold">
+              {favorites.length + history.length}
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {/* Main Action Area */}
+      <main className="w-full max-w-2xl flex flex-col items-center">
+        {!currentIdea && !isLoading && (
+          <div className="text-center py-20 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <h2 className="text-4xl md:text-6xl font-serif text-stone-900 leading-tight">
+              Real problems.<br />Real roadmaps.<br /><span className="text-amber-600">Built for builders.</span>
+            </h2>
+            <p className="text-lg text-stone-500 max-w-md mx-auto">
+              Skip the "pie-in-the-sky" concepts. Get a grounded, actionable project idea tailored to your skill set and timeline.
+            </p>
+          </div>
+        )}
+
+        {!currentIdea && !isLoading && (
+          <div className="w-full mb-8 animate-in fade-in duration-1000 delay-300">
+            <Filters filters={filters} setFilters={setFilters} />
+          </div>
+        )}
+
+        {isLoading && (
+          <div className="flex flex-col items-center justify-center py-24 space-y-4">
+            <div className="relative">
+              <div className="w-16 h-16 border-4 border-amber-200 border-t-amber-500 rounded-full animate-spin"></div>
+              <Sparkles className="absolute inset-0 m-auto w-6 h-6 text-amber-500 animate-pulse" />
+            </div>
+            <p className="text-stone-500 font-medium animate-pulse text-lg">Forging a practical path...</p>
+          </div>
+        )}
+
+        {currentIdea && !isLoading && (
+          <div className="w-full">
+            <IdeaCard 
+              idea={currentIdea} 
+              onNewIdea={handleSpark} 
+              onClose={() => setCurrentIdea(null)}
+              onToggleBookmark={() => toggleBookmark(currentIdea)}
+              isBookmarked={isBookmarked}
+            />
+          </div>
+        )}
+
+        {!currentIdea && !isLoading && (
+          <button
+            onClick={handleSpark}
+            className="group relative flex items-center justify-center gap-3 px-12 py-6 spark-gradient text-white rounded-2xl text-xl font-bold shadow-2xl shadow-orange-200 hover:scale-105 active:scale-95 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            <Sparkles className="w-6 h-6" />
+            <span>Find My Next Build</span>
+          </button>
+        )}
+      </main>
+
+      <SavedIdeas 
+        isOpen={isDrawerOpen} 
+        onClose={() => setIsDrawerOpen(false)} 
+        favorites={favorites}
+        history={history}
+        onSelect={(idea) => {
+          setCurrentIdea(idea);
+          setIsDrawerOpen(false);
+        }}
+        onRemoveFavorite={handleRemoveFromFavorites}
+        onRemoveHistory={handleRemoveFromHistory}
+      />
+
+      <footer className="mt-auto pt-12 pb-6 text-stone-400 text-sm flex items-center gap-6">
+        <span>© 2024 Spark Labs</span>
+        <a href="#" className="hover:text-amber-500 transition-colors flex items-center gap-1">
+          <Github className="w-4 h-4" /> Source
+        </a>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
