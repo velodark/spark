@@ -2,32 +2,27 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { SparkIdea, IdeaFilters } from "../types";
 
-const ai = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const getAI = () => new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
 export const generateSparkIdea = async (filters: IdeaFilters): Promise<SparkIdea> => {
-  const model = ai().models;
+  const ai = getAI();
   const prompt = `Generate a grounded, practical, and highly actionable project idea.
   Domain: ${filters.domain}
   Complexity: ${filters.complexity}
   Time Commitment: ${filters.time}
 
   CRITICAL GUIDELINES:
-  - PRACTICALITY: Focus on solving a specific, annoying friction point in a real-world workflow or daily life.
-  - FEASIBILITY: The idea must be buildable by 1-2 people using existing, accessible technology.
-  - UTILITY-FIRST: Prioritize tools, micro-SaaS, or niche services over "high-concept" or sci-fi ideas.
-  - REAL MARKET: Identify a specific, underserved group.
+  - PRACTICALITY: Focus on solving a specific, real-world friction point for a niche group.
+  - FEASIBILITY: Must be buildable by 1-2 people using accessible tech (web/mobile).
+  - UTILITY-FIRST: Prioritize niche SaaS, internal tools, or specialized utilities.
+  - REAL MARKET: Identify an underserved audience (e.g., "Small law firms," "Indie game devs," "Local bakery owners").
   
   AVOID:
-  - Far-fetched or extremely generic ideas.
+  - Sci-fi concepts, generic to-do apps, or ideas requiring massive capital.
 
-  Provide:
-  1. A catchy but descriptive Title.
-  2. A 2-3 sentence clear description.
-  3. "Target Audience": Exactly who is this for?
-  4. "Why it matters": The specific problem it solves.
-  5. A 4-step roadmap to bring a V1 (MVP) to life.`;
+  Format: JSON object with title, description (2 sentences), targetAudience, whyItMatters (the core pain point), and roadmap (4 steps with details).`;
 
-  const response = await model.generateContent({
+  const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: prompt,
     config: {
@@ -57,12 +52,10 @@ export const generateSparkIdea = async (filters: IdeaFilters): Promise<SparkIdea
     },
   });
 
-  const jsonStr = response.text || '{}';
-  const data = JSON.parse(jsonStr);
-  
+  const data = JSON.parse(response.text || '{}');
   const groundingChunks = response.candidates?.[0]?.groundingMetadata?.groundingChunks;
   const sources = groundingChunks?.map((chunk: any) => ({
-    title: chunk.web?.title || 'Source',
+    title: chunk.web?.title || 'Market Context',
     uri: chunk.web?.uri || ''
   })).filter((s: any) => s.uri) || [];
 
@@ -75,16 +68,16 @@ export const generateSparkIdea = async (filters: IdeaFilters): Promise<SparkIdea
 };
 
 export const getTacticalDeepDive = async (idea: SparkIdea): Promise<{prn: string, actionableItems: {task: string, toolSuggestion: string}[]}> => {
-  const model = ai().models;
-  const prompt = `Provide a "Tactical Deep Dive" for the following project idea: "${idea.title} - ${idea.description}".
+  const ai = getAI();
+  const prompt = `Provide a "Tactical Deep Dive" for this project: "${idea.title}".
   
   Generate:
-  1. "PRN" (Project Resource Notes): A concise technical summary of the core stack or resources needed (e.g., "Supabase for Auth/DB, Vercel for Hosting").
-  2. 4 "Actionable Items": Highly specific "Day 1" tasks. Each should include a specific tool suggestion.
+  1. "PRN" (Project Resource Notes): Recommend a modern, pragmatic technical stack (e.g., "React + Tailwind + Supabase for persistence and auth").
+  2. 4 "Actionable Items": Highly specific Day-1 tasks (e.g., "Initialize a Vite project," "Set up the database schema for XYZ").
   
-  Ensure the suggestions are modern, cost-effective, and pragmatic.`;
+  Keep it technical, realistic, and developer-focused.`;
 
-  const response = await model.generateContent({
+  const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
     contents: prompt,
     config: {
@@ -92,7 +85,7 @@ export const getTacticalDeepDive = async (idea: SparkIdea): Promise<{prn: string
       responseSchema: {
         type: Type.OBJECT,
         properties: {
-          prn: { type: Type.STRING, description: "Technical resource summary" },
+          prn: { type: Type.STRING },
           actionableItems: {
             type: Type.ARRAY,
             items: {
@@ -110,6 +103,5 @@ export const getTacticalDeepDive = async (idea: SparkIdea): Promise<{prn: string
     },
   });
 
-  const jsonStr = response.text || '{}';
-  return JSON.parse(jsonStr);
+  return JSON.parse(response.text || '{}');
 };
