@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { generateSparkIdea } from './services/geminiService';
 import { SparkIdea, IdeaFilters } from './types';
-import IdeaCard from './components/IdeaCard';
+import IdeaCard from './components/IdeaCardV2';
 import Filters from './components/Filters';
 import SavedIdeas from './components/SavedIdeas';
 import { Sparkles, History as HistoryIcon, Github, Share2 } from 'lucide-react';
