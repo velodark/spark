@@ -114,7 +114,13 @@ const App: React.FC = () => {
         </div>
         
         <div className="flex items-center gap-3">
-          <button 
+          <button
+            style={{ backgroundColor: 'red', color: 'white', padding: '8px 16px', borderRadius: '8px', fontWeight: 'bold' }}
+            onClick={() => alert('TEST BUTTON WORKS')}
+          >
+            TEST
+          </button>
+          <button
             onClick={() => setIsDrawerOpen(true)}
             className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-stone-200 rounded-full text-stone-600 hover:bg-stone-50 transition-all shadow-sm active:scale-95"
           >
