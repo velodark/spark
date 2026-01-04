@@ -82,15 +82,16 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
           </button>
           <button
             onClick={handleShare}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-full transition-all ${
+            data-testid="share-button"
+            className={`flex items-center gap-1.5 px-3 py-2 rounded-full border-2 border-blue-500 bg-blue-100 text-blue-700 transition-all ${
               linkCopied
-                ? 'bg-green-100 text-green-600'
-                : 'hover:bg-stone-200 text-stone-400 hover:text-stone-600'
+                ? 'bg-green-100 text-green-600 border-green-500'
+                : ''
             }`}
             title={linkCopied ? "Link copied!" : "Copy shareable link"}
           >
             {linkCopied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
-            <span className="text-xs font-medium">{linkCopied ? 'Copied!' : 'Share'}</span>
+            <span className="text-xs font-bold">{linkCopied ? 'Copied!' : 'SHARE'}</span>
           </button>
           <button
             onClick={handleCopy}
