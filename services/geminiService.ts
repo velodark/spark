@@ -26,7 +26,6 @@ export const generateSparkIdea = async (filters: IdeaFilters): Promise<SparkIdea
     model: 'gemini-2.0-flash',
     contents: prompt,
     config: {
-      tools: [{ googleSearch: {} }],
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.OBJECT,
