@@ -23,7 +23,7 @@ export const generateSparkIdea = async (filters: IdeaFilters): Promise<SparkIdea
   Format: JSON object with title, description (2 sentences), targetAudience, whyItMatters (the core pain point), and roadmap (4 steps with details).`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
+    model: 'gemini-2.0-flash',
     contents: prompt,
     config: {
       tools: [{ googleSearch: {} }],
@@ -78,7 +78,7 @@ export const getTacticalDeepDive = async (idea: SparkIdea): Promise<{prn: string
   Keep it technical, realistic, and developer-focused.`;
 
   const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
+    model: 'gemini-2.0-flash',
     contents: prompt,
     config: {
       responseMimeType: "application/json",
