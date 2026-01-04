@@ -5,7 +5,7 @@ import { getTacticalDeepDive } from '../services/geminiService';
 import {
   Sparkles, Users, CheckCircle2, ArrowLeft, RefreshCw,
   ExternalLink, Copy, Check, ThumbsUp, ThumbsDown,
-  Wrench, Zap, Info, Loader2, Bookmark, Share2, Link
+  Wrench, Zap, Info, Loader2, Bookmark, Share2
 } from 'lucide-react';
 import { createShareableUrl } from '../utils/shareUtils';
 
@@ -89,7 +89,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
             }`}
             title={linkCopied ? "Link copied!" : "Copy shareable link"}
           >
-            {linkCopied ? <Check className="w-5 h-5" /> : <Link className="w-5 h-5" />}
+            {linkCopied ? <Check className="w-5 h-5" /> : <Share2 className="w-5 h-5" />}
           </button>
           <button
             onClick={handleCopy}
