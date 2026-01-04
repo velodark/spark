@@ -5,16 +5,18 @@ import { SparkIdea, IdeaFilters } from './types';
 import IdeaCard from './components/IdeaCard';
 import Filters from './components/Filters';
 import SavedIdeas from './components/SavedIdeas';
-import { Sparkles, History as HistoryIcon, Github } from 'lucide-react';
+import { Sparkles, History as HistoryIcon, Github, Share2 } from 'lucide-react';
+import { getSharedIdeaFromUrl, clearSharedIdeaFromUrl } from './utils/shareUtils';
 
 const App: React.FC = () => {
   const [currentIdea, setCurrentIdea] = useState<SparkIdea | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  
+  const [isSharedIdea, setIsSharedIdea] = useState(false);
+
   const [history, setHistory] = useState<SparkIdea[]>([]);
   const [favorites, setFavorites] = useState<SparkIdea[]>([]);
-  
+
   const [filters, setFilters] = useState<IdeaFilters>({
     domain: 'any',
     complexity: 'moderate',
@@ -29,6 +31,16 @@ const App: React.FC = () => {
     if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
   }, []);
 
+  // Check for shared idea in URL on mount
+  useEffect(() => {
+    const sharedIdea = getSharedIdeaFromUrl();
+    if (sharedIdea) {
+      setCurrentIdea(sharedIdea);
+      setIsSharedIdea(true);
+      clearSharedIdeaFromUrl();
+    }
+  }, []);
+
   // Sync to localStorage whenever history or favorites change
   useEffect(() => {
     localStorage.setItem('spark_history', JSON.stringify(history));
@@ -41,6 +53,7 @@ const App: React.FC = () => {
   const handleSpark = async () => {
     setIsLoading(true);
     setCurrentIdea(null);
+    setIsSharedIdea(false);
     try {
       const idea = await generateSparkIdea(filters);
       setCurrentIdea(idea);
@@ -144,10 +157,19 @@ const App: React.FC = () => {
 
         {currentIdea && !isLoading && (
           <div className="w-full">
-            <IdeaCard 
-              idea={currentIdea} 
-              onNewIdea={handleSpark} 
-              onClose={() => setCurrentIdea(null)}
+            {isSharedIdea && (
+              <div className="mb-4 flex items-center justify-center gap-2 px-4 py-2 bg-violet-100 text-violet-700 rounded-full text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-500">
+                <Share2 className="w-4 h-4" />
+                <span>Shared idea - save it to your favorites!</span>
+              </div>
+            )}
+            <IdeaCard
+              idea={currentIdea}
+              onNewIdea={handleSpark}
+              onClose={() => {
+                setCurrentIdea(null);
+                setIsSharedIdea(false);
+              }}
               onToggleBookmark={() => toggleBookmark(currentIdea)}
               onUpdateIdea={updateIdea}
               isBookmarked={isBookmarked}

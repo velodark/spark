@@ -2,11 +2,12 @@
 import React, { useState } from 'react';
 import { SparkIdea } from '../types';
 import { getTacticalDeepDive } from '../services/geminiService';
-import { 
-  Sparkles, Users, CheckCircle2, ArrowLeft, RefreshCw, 
-  ExternalLink, Copy, Check, ThumbsUp, ThumbsDown, 
-  Wrench, Zap, Info, Loader2, Bookmark
+import {
+  Sparkles, Users, CheckCircle2, ArrowLeft, RefreshCw,
+  ExternalLink, Copy, Check, ThumbsUp, ThumbsDown,
+  Wrench, Zap, Info, Loader2, Bookmark, Share2, Link
 } from 'lucide-react';
+import { createShareableUrl } from '../utils/shareUtils';
 
 interface IdeaCardProps {
   idea: SparkIdea;
@@ -19,6 +20,7 @@ interface IdeaCardProps {
 
 const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleBookmark, onUpdateIdea, isBookmarked }) => {
   const [copied, setCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const [isDeepDiving, setIsDeepDiving] = useState(false);
   const [hasVoted, setHasVoted] = useState(!!idea.tacticalDeepDive);
 
@@ -27,6 +29,13 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
     navigator.clipboard.writeText(text);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleShare = () => {
+    const url = createShareableUrl(idea);
+    navigator.clipboard.writeText(url);
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2500);
   };
 
   const handleThumbsUp = async () => {
@@ -71,9 +80,21 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
           >
             <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
           </button>
-          <button 
+          <button
+            onClick={handleShare}
+            className={`p-2.5 rounded-full transition-all ${
+              linkCopied
+                ? 'bg-green-100 text-green-600'
+                : 'hover:bg-stone-200 text-stone-400 hover:text-stone-600'
+            }`}
+            title={linkCopied ? "Link copied!" : "Copy shareable link"}
+          >
+            {linkCopied ? <Check className="w-5 h-5" /> : <Link className="w-5 h-5" />}
+          </button>
+          <button
             onClick={handleCopy}
             className="p-2.5 hover:bg-stone-200 rounded-full transition-colors text-stone-400 hover:text-stone-600"
+            title="Copy as text"
           >
             {copied ? <Check className="w-5 h-5 text-green-500" /> : <Copy className="w-5 h-5" />}
           </button>
