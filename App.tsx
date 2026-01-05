@@ -132,7 +132,7 @@ const App: React.FC = () => {
         {!currentIdea && !isLoading && (
           <div className="text-center py-16 md:py-24 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h2 className={`text-4xl md:text-6xl font-serif leading-tight ${darkMode ? 'text-stone-100' : 'text-stone-900'}`}>
-              Practical ideas.<br />Real roadmaps.<br /><span className="text-[#fa8072] italic">Built for builders.</span>
+              Practical ideas.<br />Real roadmaps.<br /><span className="text-[#FF91A4] italic">Built for builders.</span>
             </h2>
             <p className={`text-lg max-w-md mx-auto leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
               Skip the fluff. Get a grounded, actionable project idea tailored to your stack and timeline.
@@ -149,8 +149,8 @@ const App: React.FC = () => {
         {isLoading && (
           <div className="flex flex-col items-center justify-center py-24 space-y-6">
             <div className="relative">
-              <div className="w-20 h-20 border-4 border-rose-100 border-t-[#fa8072] rounded-full animate-spin"></div>
-              <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-[#fa8072] animate-pulse" />
+              <div className="w-20 h-20 border-4 border-rose-100 border-t-[#FF91A4] rounded-full animate-spin"></div>
+              <Sparkles className="absolute inset-0 m-auto w-8 h-8 text-[#FF91A4] animate-pulse" />
             </div>
             <p className={`font-medium animate-pulse text-xl ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>Engineering your next build...</p>
           </div>

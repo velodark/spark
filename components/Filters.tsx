@@ -34,7 +34,7 @@ const Filters: React.FC<FiltersProps> = ({ filters, setFilters, darkMode }) => {
             onClick={() => setFilters(prev => ({ ...prev, domain: d.id }))}
             className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-semibold transition-all ${
               filters.domain === d.id 
-                ? 'bg-[#fa8072] text-white shadow-lg shadow-rose-200 scale-105' 
+                ? 'bg-[#FF91A4] text-white shadow-lg shadow-rose-200 scale-105' 
                 : darkMode 
                   ? 'bg-stone-700 text-stone-300 hover:bg-stone-600 border border-stone-600'
                   : 'bg-white/80 text-stone-600 hover:bg-white border border-stone-100'
@@ -58,8 +58,8 @@ const Filters: React.FC<FiltersProps> = ({ filters, setFilters, darkMode }) => {
                 className={`flex-1 py-2 text-sm font-bold rounded-lg capitalize transition-all ${
                   filters.complexity === c 
                     ? darkMode 
-                      ? 'bg-stone-600 text-[#fa8072] shadow-sm'
-                      : 'bg-white text-[#fa8072] shadow-sm'
+                      ? 'bg-stone-600 text-[#FF91A4] shadow-sm'
+                      : 'bg-white text-[#FF91A4] shadow-sm'
                     : darkMode
                       ? 'text-stone-400 hover:text-stone-300'
                       : 'text-stone-400 hover:text-stone-600'
@@ -82,8 +82,8 @@ const Filters: React.FC<FiltersProps> = ({ filters, setFilters, darkMode }) => {
                 className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                   filters.time === t.id 
                     ? darkMode
-                      ? 'bg-stone-600 text-[#fa8072] shadow-sm'
-                      : 'bg-white text-[#fa8072] shadow-sm'
+                      ? 'bg-stone-600 text-[#FF91A4] shadow-sm'
+                      : 'bg-white text-[#FF91A4] shadow-sm'
                     : darkMode
                       ? 'text-stone-400 hover:text-stone-300'
                       : 'text-stone-400 hover:text-stone-600'

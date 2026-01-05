@@ -43,7 +43,7 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
         <div className={`p-6 border-b ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}>
           <div className="flex justify-between items-center mb-6">
             <h3 className={`text-xl font-bold flex items-center gap-2 ${darkMode ? 'text-stone-100' : 'text-stone-800'}`}>
-              <Clock className="w-5 h-5 text-[#fa8072]" />
+              <Clock className="w-5 h-5 text-[#FF91A4]" />
               Activity Archive
             </h3>
             <button onClick={onClose} className={`p-2 rounded-full ${darkMode ? 'hover:bg-stone-700 text-stone-400' : 'hover:bg-stone-100 text-stone-400'}`}>
@@ -58,8 +58,8 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
               className={`flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all ${
                 activeTab === 'favorites' 
                   ? darkMode 
-                    ? 'bg-stone-600 text-[#fa8072] shadow-sm'
-                    : 'bg-white text-[#fa8072] shadow-sm'
+                    ? 'bg-stone-600 text-[#FF91A4] shadow-sm'
+                    : 'bg-white text-[#FF91A4] shadow-sm'
                   : darkMode
                     ? 'text-stone-400 hover:text-stone-300'
                     : 'text-stone-400 hover:text-stone-600'
@@ -73,8 +73,8 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
               className={`flex-1 flex items-center justify-center gap-2 py-2 text-sm font-bold rounded-lg transition-all ${
                 activeTab === 'history' 
                   ? darkMode
-                    ? 'bg-stone-600 text-[#fa8072] shadow-sm'
-                    : 'bg-white text-[#fa8072] shadow-sm'
+                    ? 'bg-stone-600 text-[#FF91A4] shadow-sm'
+                    : 'bg-white text-[#FF91A4] shadow-sm'
                   : darkMode
                     ? 'text-stone-400 hover:text-stone-300'
                     : 'text-stone-400 hover:text-stone-600'
@@ -113,7 +113,7 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
                 onClick={() => onSelect(idea)}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className={`font-bold transition-colors pr-8 ${darkMode ? 'text-stone-200 group-hover:text-[#fa8072]' : 'text-stone-800 group-hover:text-[#fa8072]'}`}>
+                  <h4 className={`font-bold transition-colors pr-8 ${darkMode ? 'text-stone-200 group-hover:text-[#FF91A4' : 'text-stone-800 group-hover:text-[#FF91A4]'}`}>
                     {idea.title}
                   </h4>
                   <button 
@@ -134,7 +134,7 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
                     <Calendar className="w-3 h-3" />
                     {new Date(idea.timestamp).toLocaleDateString()}
                   </span>
-                  <span className="flex items-center gap-1 group-hover:text-[#fa8072] transition-colors">
+                  <span className="flex items-center gap-1 group-hover:text-[#FF91A4] transition-colors">
                     View Specs <ChevronRight className="w-3 h-3" />
                   </span>
                 </div>

@@ -62,7 +62,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
             onClick={onToggleBookmark}
             className={`p-2.5 rounded-full transition-all active:scale-90 ${
               isBookmarked 
-                ? 'bg-rose-100 text-[#fa8072] shadow-inner' 
+                ? 'bg-rose-100 text-[#FF91A4] shadow-inner' 
                 : darkMode 
                   ? 'hover:bg-stone-700 text-stone-400 hover:text-stone-200'
                   : 'hover:bg-stone-200 text-stone-400 hover:text-stone-600'
@@ -79,7 +79,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
           </button>
           <button 
             onClick={onNewIdea}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#fa8072] text-white rounded-full font-bold hover:bg-[#e75a4d] transition-all shadow-md active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#FF91A4 text-white rounded-full font-bold hover:bg-[#e8637a] transition-all shadow-md active:scale-95"
           >
             <RefreshCw className="w-4 h-4" />
             <span className="hidden sm:inline">Refresh</span>
@@ -89,7 +89,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
 
       <div className="p-8 md:p-12">
         <div className="mb-10 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-rose-100 text-[#fa8072] rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-rose-100 text-[#FF91A4] rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">
             <Sparkles className="w-3 h-3" />
             Validated Solution
           </div>
@@ -104,7 +104,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
         <div className="grid sm:grid-cols-2 gap-4 mb-12">
           <div className={`p-6 rounded-3xl border flex flex-col justify-center ${darkMode ? 'bg-rose-900/20 border-rose-800' : 'bg-rose-50/50 border-rose-100'}`}>
             <h3 className={`font-bold uppercase text-[10px] tracking-widest mb-2 flex items-center gap-2 ${darkMode ? 'text-stone-400' : 'text-stone-400'}`}>
-              <Users className="w-3 h-3 text-[#fa8072]" /> Market Niche
+              <Users className="w-3 h-3 text-[#FF91A4]" /> Market Niche
             </h3>
             <p className={`font-bold text-lg leading-tight ${darkMode ? 'text-stone-200' : 'text-stone-800'}`}>
               {idea.targetAudience}
@@ -130,11 +130,11 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
             {idea.roadmap.map((step, idx) => (
               <div key={idx} className={`group p-6 rounded-[2rem] border transition-all duration-300 ${darkMode ? 'border-stone-700 hover:border-rose-700 hover:bg-rose-900/10' : 'border-stone-100 hover:border-rose-200 hover:bg-rose-50/20'}`}>
                 <div className="flex items-start gap-4">
-                  <span className={`flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-lg transition-colors ${darkMode ? 'bg-stone-700 group-hover:bg-[#fa8072] group-hover:text-white text-stone-400' : 'bg-stone-100 group-hover:bg-[#fa8072] group-hover:text-white text-stone-500'}`}>
+                  <span className={`flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-lg transition-colors ${darkMode ? 'bg-stone-700 group-hover:bg-[#FF91A4 group-hover:text-white text-stone-400' : 'bg-stone-100 group-hover:bg-[#FF91A4] group-hover:text-white text-stone-500'}`}>
                     {idx + 1}
                   </span>
                   <div>
-                    <h4 className={`font-bold mb-2 transition-colors ${darkMode ? 'text-stone-200 group-hover:text-[#fa8072]' : 'text-stone-800 group-hover:text-[#fa8072]'}`}>{step.step}</h4>
+                    <h4 className={`font-bold mb-2 transition-colors ${darkMode ? 'text-stone-200 group-hover:text-[#FF91A4]' : 'text-stone-800 group-hover:text-[#FF91A4]'}`}>{step.step}</h4>
                     <p className={`text-sm leading-relaxed font-medium ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>{step.detail}</p>
                   </div>
                 </div>
@@ -147,19 +147,19 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
           <div className="mt-16 p-8 md:p-10 bg-stone-950 rounded-[2.5rem] text-white shadow-2xl animate-in slide-in-from-bottom-8 duration-700">
             <div className="flex items-center justify-between mb-8 border-b border-white/10 pb-6">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-[#fa8072] rounded-lg">
+                <div className="p-2 bg-[#FF91A4] rounded-lg">
                   <Wrench className="w-5 h-5 text-stone-950" />
                 </div>
                 <h3 className="text-2xl font-bold tracking-tight">Tactical Briefing</h3>
               </div>
-              <div className="px-3 py-1 bg-[#fa8072]/10 text-[#fa8072] text-[10px] font-bold uppercase tracking-widest border border-[#fa8072]/20 rounded-full">
+              <div className="px-3 py-1 bg-[#FF91A4]/10 text-[#FF91A4] text-[10px] font-bold uppercase tracking-widest border border-[#FF91A4]/20 rounded-full">
                 PRN-01 Active
               </div>
             </div>
 
             {isDeepDiving ? (
               <div className="flex flex-col items-center py-16 space-y-6">
-                <Loader2 className="w-10 h-10 text-[#fa8072] animate-spin" />
+                <Loader2 className="w-10 h-10 text-[#FF91A4] animate-spin" />
                 <div className="text-center">
                   <p className="text-stone-400 font-mono text-xs uppercase tracking-[0.2em] mb-2">Analyzing Dependencies...</p>
                   <p className="text-stone-600 text-xs italic">Searching for best-in-class tool suggestions</p>
@@ -172,7 +172,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
                     <Info className="w-16 h-16" />
                   </div>
                   <h4 className="text-stone-500 text-[10px] font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <Zap className="w-3 h-3 text-[#fa8072]" /> Project Resource Notes
+                    <Zap className="w-3 h-3 text-[#FF91A4]" /> Project Resource Notes
                   </h4>
                   <p className="text-rose-100 leading-relaxed font-mono text-sm">
                     {idea.tacticalDeepDive?.prn}
@@ -184,14 +184,14 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
                   <div className="grid gap-3">
                     {idea.tacticalDeepDive?.actionableItems.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-all group/task cursor-default">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#fa8072]/10 flex items-center justify-center group-hover/task:bg-[#fa8072]/20 transition-colors">
-                          <CheckCircle2 className="w-4 h-4 text-[#fa8072]" />
+                        <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#FF91A4]/10 flex items-center justify-center group-hover/task:bg-[#FF91A4]/20 transition-colors">
+                          <CheckCircle2 className="w-4 h-4 text-[#FF91A4" />
                         </div>
                         <div className="flex-1">
                           <p className="text-stone-200 text-sm font-bold mb-0.5 group-hover/task:text-white transition-colors">{item.task}</p>
                           <div className="flex items-center gap-2">
                             <span className="text-[10px] font-mono text-stone-500 uppercase">Stack:</span>
-                            <span className="text-[#fa8072] text-[10px] font-mono font-bold tracking-tight">{item.toolSuggestion}</span>
+                            <span className="text-[#FF91A4] text-[10px] font-mono font-bold tracking-tight">{item.toolSuggestion}</span>
                           </div>
                         </div>
                       </div>
