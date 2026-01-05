@@ -113,7 +113,7 @@ const SavedIdeas: React.FC<SavedIdeasProps> = ({
                 onClick={() => onSelect(idea)}
               >
                 <div className="flex justify-between items-start mb-2">
-                  <h4 className={`font-bold transition-colors pr-8 ${darkMode ? 'text-stone-200 group-hover:text-[#FF91A4' : 'text-stone-800 group-hover:text-[#FF91A4]'}`}>
+                  <h4 className={`font-bold transition-colors pr-8 ${darkMode ? 'text-stone-200 group-hover:text-[#FF91A4]' : 'text-stone-800 group-hover:text-[#FF91A4]'}`}>
                     {idea.title}
                   </h4>
                   <button 
