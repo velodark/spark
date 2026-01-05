@@ -118,7 +118,7 @@ const App: React.FC = () => {
         {!currentIdea && !isLoading && (
           <div className="text-center py-16 md:py-24 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <h2 className="text-4xl md:text-6xl font-serif text-stone-900 leading-tight">
-              Practical ideas.<br />Real roadmaps.<br /><span className="text-amber-600 italic">Built for builders.</span>
+              Practical ideas.<br />Real roadmaps.<br /><span className="text-amber-600 italic">Made for makers.</span>
             </h2>
             <p className="text-lg text-stone-500 max-w-md mx-auto leading-relaxed">
               Skip the fluff. Get a grounded, actionable project idea tailored to your stack and timeline.
