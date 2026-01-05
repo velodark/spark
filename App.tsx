@@ -197,7 +197,7 @@ const App: React.FC = () => {
       />
 
       <footer className={`mt-auto pt-16 pb-8 text-sm flex items-center gap-8 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
-        <span className="font-medium">© 2024 Spark Labs</span>
+        <span className="font-medium">© 2025 Spark Labs</span>
       </footer>
     </div>
   );
