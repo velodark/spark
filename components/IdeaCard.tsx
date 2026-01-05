@@ -79,7 +79,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
           </button>
           <button 
             onClick={onNewIdea}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#FF91A4 text-white rounded-full font-bold hover:bg-[#e8637a] transition-all shadow-md active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 bg-[#FF91A4] text-white rounded-full font-bold hover:bg-[#e8637a] transition-all shadow-md active:scale-95"
           >
             <RefreshCw className="w-4 h-4" />
             <span className="hidden sm:inline">Refresh</span>
@@ -130,7 +130,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
             {idea.roadmap.map((step, idx) => (
               <div key={idx} className={`group p-6 rounded-[2rem] border transition-all duration-300 ${darkMode ? 'border-stone-700 hover:border-rose-700 hover:bg-rose-900/10' : 'border-stone-100 hover:border-rose-200 hover:bg-rose-50/20'}`}>
                 <div className="flex items-start gap-4">
-                  <span className={`flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-lg transition-colors ${darkMode ? 'bg-stone-700 group-hover:bg-[#FF91A4 group-hover:text-white text-stone-400' : 'bg-stone-100 group-hover:bg-[#FF91A4] group-hover:text-white text-stone-500'}`}>
+                  <span className={`flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center font-bold text-lg transition-colors ${darkMode ? 'bg-stone-700 group-hover:bg-[#FF91A4] group-hover:text-white text-stone-400' : 'bg-stone-100 group-hover:bg-[#FF91A4] group-hover:text-white text-stone-500'}`}>
                     {idx + 1}
                   </span>
                   <div>
@@ -185,7 +185,7 @@ const IdeaCard: React.FC<IdeaCardProps> = ({ idea, onNewIdea, onClose, onToggleB
                     {idea.tacticalDeepDive?.actionableItems.map((item, idx) => (
                       <div key={idx} className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/5 hover:bg-white/10 transition-all group/task cursor-default">
                         <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-[#FF91A4]/10 flex items-center justify-center group-hover/task:bg-[#FF91A4]/20 transition-colors">
-                          <CheckCircle2 className="w-4 h-4 text-[#FF91A4" />
+                          <CheckCircle2 className="w-4 h-4 text-[#FF91A4]" />
                         </div>
                         <div className="flex-1">
                           <p className="text-stone-200 text-sm font-bold mb-0.5 group-hover/task:text-white transition-colors">{item.task}</p>
