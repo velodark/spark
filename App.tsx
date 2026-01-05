@@ -101,7 +101,10 @@ const App: React.FC = () => {
         </div>
         
         <div className="flex items-center gap-3">
-          <button 
+          <button className="px-4 py-2 bg-red-500 text-white font-bold rounded-lg">
+            TEST
+          </button>
+          <button
             onClick={() => setIsDrawerOpen(true)}
             className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-stone-200 rounded-full text-stone-600 hover:bg-stone-50 transition-all shadow-sm active:scale-95"
           >
