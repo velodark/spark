@@ -121,7 +121,7 @@ const App: React.FC = () => {
               Practical ideas.<br />Real roadmaps.<br /><span className="text-amber-600 italic">Made for makers.</span>
             </h2>
             <p className="text-lg text-stone-500 max-w-md mx-auto leading-relaxed">
-              Skip the fluff. Get a grounded, actionable project idea tailored to your stack and timeline.
+              Skip the fluff. Get a grounded, actionable project idea powered by Gemini AI.
             </p>
           </div>
         )}
