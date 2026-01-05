@@ -106,7 +106,7 @@ const App: React.FC = () => {
             <Sparkles className="text-white w-6 h-6" />
           </div>
           <h1 className={`text-2xl font-bold tracking-tight ${darkMode ? 'text-stone-100' : 'text-stone-800'}`}>Spark</h1>
-        </div>
+        </button>
         
         <div className="flex items-center gap-3">
           <button
