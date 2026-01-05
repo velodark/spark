@@ -101,7 +101,7 @@ const App: React.FC = () => {
       </div>
 
       <header className="w-full max-w-4xl flex justify-between items-center mb-12">
-        <div className="flex items-center gap-3 group cursor-default">
+        <button onClick={() => setCurrentIdea(null)} className="flex items-center gap-3 group cursor-pointer">
           <div className="p-2.5 bg-[#FF91A4] rounded-xl shadow-lg shadow-[#FFCDD4] group-hover:rotate-12 transition-all duration-500">
             <Sparkles className="text-white w-6 h-6" />
           </div>
